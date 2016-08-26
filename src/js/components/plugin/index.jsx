@@ -31,7 +31,7 @@
 			const { Title, Menu } = this.components.GUI
 
 			return (
-				<div className={manifest.id}>
+				<div className="se-infomaker-dashboard-plugin">
 					<Title text="Hello World"/>
 				</div>
 			)
