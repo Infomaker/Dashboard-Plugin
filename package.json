@@ -1,7 +1,7 @@
 {
   "name": "HelloWorld",
   "version": "1.0.0",
-  "description": "Infomaker Dashboard Hello World Plugin",
+  "description": "Infomaker Dashboard Starter Plugin",
   "main": "webpack.config.js",
   "scripts": {
     "upload:s3": "npm run build:prod && node ./s3.js",
