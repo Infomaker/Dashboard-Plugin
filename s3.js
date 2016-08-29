@@ -5,12 +5,6 @@ const manifest = require('./manifest.json')
 
 const expectedArgs = ["bucket", "accessKeyId", "secretAccessKey"]
 
-const print = function(msg, noError) {
-  exec('bash ' + __dirname + '/print.sh ' + "'" + msg + "'" + ' ' + (noError ? false : true), function (error, stdout, stderr) {
-    console.log(stdout)
-  });
-}
-
 var args = {}
 
 process.argv.forEach(arg => {
@@ -26,13 +20,13 @@ console.log(" Plugin S3 plugin uploader ")
 console.log(" ----------------------------\n")
 
 if (!args.accessKeyId) {
-  print("Failed to upload plugin, missing arg accessKeyId", false)
+  console.log("💥  Failed to upload plugin, missing arg accessKeyId")
   return false
 } else if (!args.secretAccessKey) {
-  print("Failed to upload plugin, missing arg secretAccessKey", false)
+  console.log("💥  Failed to upload plugin, missing arg secretAccessKey")
   return false
 } else if (!args.bucket) {
-  print("Failed to upload plugin, missing arg bucket", false)
+  console.log("💥  Failed to upload plugin, missing arg bucket")
   return false
 }
 
@@ -53,7 +47,7 @@ s3Bucket.upload({
   ACL: 'public-read'
 }, (err, data) => {
     if (err) {
-    print(err, false)
+      console.log("💥  " + err)
   } else {
     console.log("\n> uploaded index > " + data.Location + "\n")
 
@@ -66,7 +60,7 @@ s3Bucket.upload({
       ACL: 'public-read'
     }, (err, data) => {
         if (err) {
-          print(err, false)
+          console.log("💥  " + err)
       } else {
 
         console.log("> uploaded style > " + data.Location + "\n")
@@ -80,13 +74,13 @@ s3Bucket.upload({
           ACL: 'public-read'
         }, (err, data) => {
             if (err) {
-            print(err, false)
+            console.log("💥  " + err)
           } else {
             console.log("> uploaded manifest > " + data.Location + "\n")
 
             const path = data.Location.replace("/manifest.json", "")
 
-            print("Successfully uploaded " + manifest.name + " to " + path, true)
+            console.log("🎉  Successfully uploaded " + manifest.name + " to " + path)
           }
         })
       }

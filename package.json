@@ -1,6 +1,6 @@
 {
   "name": "HelloWorld",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Infomaker Dashboard Starter Plugin",
   "main": "webpack.config.js",
   "scripts": {
