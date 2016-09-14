@@ -58,16 +58,14 @@
 		constructor() {
 			super()
 
-			this.poll()
+			this.connect()
 		}
 
 		/**
 		 * This is a example of a super simple agent. Your agent should do something cooler and hopfully more meaningful than this :)
 		*/
-		poll() {
-			this.interval = window.setInterval(() => {
-				console.log("poll")
-			}, 1000)
+		connect() {
+			console.log("Beep beep, agent is connected...")
 		}
 	}
 
@@ -76,9 +74,10 @@
 	*/
 	Dashboard.register({
 		// Leave this be and it will fetch the data from your manifest file (./manifest.json) in the build steps
-		id: "@plugin_id",
+		bundle: "@plugin_bundle",
 		name: "@plugin_name",
 		author: "@plugin_author",
+		graphic_url: "@graphic_url",
 		version: "@plugin_version",
 
 		// Only of of these are actually required. If you are developing a widget, just remove the application and agent properties.
