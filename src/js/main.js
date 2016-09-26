@@ -10,4 +10,4 @@
 */
 
 require('./components/plugin/style.scss')
-import Plugin from './components/plugin/index.jsx'
+require('./components/plugin/index.jsx')

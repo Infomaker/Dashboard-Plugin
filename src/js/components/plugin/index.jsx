@@ -28,7 +28,7 @@
 		}
 
 		render() {
-			const { Title, Menu } = this.components.GUI
+			const { Title } = this.components.GUI
 
 			return (
 				<div className="se-infomaker-dashboard-plugin">
@@ -86,4 +86,4 @@
 		agent: Agent
 	})
 
-})(Dashboard, React)
+})(window.Dashboard, window.React)

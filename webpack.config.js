@@ -49,6 +49,7 @@ module.exports = {
           }
         ],
         preLoaders: [
+          { test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/ },
           {
             test: /index\.jsx$/,
             loader: 'string-replace',
@@ -70,6 +71,10 @@ module.exports = {
         // Which loaders should be applied to @imported resources (How many after the css loader)
         importLoaders: 1,
         sourceMap: true
+    },
+    eslint: {
+        failOnWarning: false,
+        failOnError: true
     },
     plugins: [
         new ExtractTextPlugin("style.css"),
