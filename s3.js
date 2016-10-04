@@ -36,7 +36,7 @@ const s3Bucket = new AWS.S3({
 })
 
 const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}).replace(/\s/g, '')
-const baseKey = manifest.id.replace(/\./g, '-').toLowerCase()
+const baseKey = manifest.bundle.replace(/\./g, '-').toLowerCase()
 
 s3Bucket.upload({
   Bucket: args.bucket,
