@@ -27,7 +27,7 @@ This will serve your plugin local and that url can be used for install you dev-p
     npm run upload:s3 accessKeyId="YOUR_ACCESS_KEY_ID" secretAccessKey="YOUR_SECRET_ACCESS_KEY" bucket="YOUR_BUCKET"
 
 This will first execute
-	> npm run build:prod
+	npm run build:prod
 
 The plugin id from the manifest file will be added as part of the key. Example:
     se-infomaker-dashboard-plugin/manifest.json
