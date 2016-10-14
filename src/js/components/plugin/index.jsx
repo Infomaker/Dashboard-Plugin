@@ -5,7 +5,7 @@
 |
 | Welcome to your plugin. Your plugin can have an agent, widget and a application.
 | All of this is accesible through the Dashboard object.
-| Please write some awesome code!
+| Let's go!
 |
 */
 

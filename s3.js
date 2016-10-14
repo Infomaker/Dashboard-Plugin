@@ -1,3 +1,13 @@
+/*
+|--------------------------------------------------------------------------
+| S3 Bucket Deploy
+|--------------------------------------------------------------------------
+|
+| npm run upload:s3 will build your plugin and upload it to your bucket.
+| Read the plugin readme for full details.
+|
+*/
+
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const exec = require('child_process').exec

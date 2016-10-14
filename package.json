@@ -4,9 +4,10 @@
   "description": "Infomaker Dashboard Starter Plugin",
   "main": "webpack.config.js",
   "scripts": {
+    "dev": "webpack --content-base build/ --config webpack.config.js --hot --progress --colors --watch",
+    "server": "SERVER_PORT=3000 node server.js",
     "upload:s3": "npm run build:prod && node ./s3.js",
-    "build:prod": "webpack --config webpack.production.config.js --production --minimize --progress --colors",
-    "build": "webpack --config webpack.config.js --progress --colors"
+    "build:prod": "webpack --config webpack.production.config.js --production --minimize --progress --colors"
   },
   "author": "",
   "license": "ISC",
@@ -40,5 +41,10 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.15.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "http-server": "^0.9.0"
   }
 }
