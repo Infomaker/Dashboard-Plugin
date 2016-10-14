@@ -25,6 +25,16 @@ module.exports = {
         filename: "index.js",
         path: "build",
     },
+    devServer: {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
+      },
+      historyApiFallback: true,
+      inline: true,
+      compress: false,
+      port: 3000
+    },
     postcss: [
         autoprefixer({
             browsers: ['last 2 versions']
