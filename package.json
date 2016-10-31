@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --content-base build/ --config webpack.config.js --hot --progress --colors --watch",
     "server": "SERVER_PORT=3000 node server.js",
-    "upload:s3": "npm run build:prod && node ./s3.js",
+    "upload:s3": "yarn build:prod && node ./s3.js",
     "build:prod": "webpack --config webpack.production.config.js --production --minimize --progress --colors"
   },
   "author": "",
