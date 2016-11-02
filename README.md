@@ -4,9 +4,6 @@ Dashboard Plugin is a starter project for developing Dashboard plugins that cont
 ## Prerequisites
 * Yarn - https://github.com/yarnpkg/yarn (because npm is so 2016).
 
-## Fork
-It is recommended to create a fork of this repository. You can then create a new branch in that forked repository for all of your plugins. To fetch updates and keep your fork in sync you can add this repository as a remote (https://help.github.com/articles/configuring-a-remote-for-a-fork/). It is  easy to fetch and merge updates (https://help.github.com/articles/syncing-a-fork/).
-
 ## Setup
     yarn
 
