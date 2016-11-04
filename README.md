@@ -1,6 +1,9 @@
 # Dashboard Plugin
 Dashboard Plugin is a starter project for developing Dashboard plugins that contains all the tools you need for writing awesome plugins.
 
+## Wiki
+[Learn all the things](https://github.com/Infomaker/Dashboard-Plugin/wiki)
+
 ## Prerequisites
 * Yarn - https://github.com/yarnpkg/yarn (because npm is so 2016).
 
