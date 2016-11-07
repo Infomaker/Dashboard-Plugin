@@ -5,7 +5,6 @@
 |
 | main.js is responsible for importing all plugin core resources.
 | Below we are importing the sass file the plugin styles and the plugin file itself.
-| Please leave it as it is.
 |
 */
 

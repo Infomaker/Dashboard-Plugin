@@ -3,8 +3,7 @@
 | Production config file
 |--------------------------------------------------------------------------
 |
-| This is you webpack production config.
-| Please leave it as it is.
+| This is the default webpack production config.
 |
 */
 

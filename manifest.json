@@ -2,6 +2,5 @@
   "bundle": "se.infomaker.DashboardPlugin",
   "name": "Dashboard Plugin",
   "author": "Infomaker Scandinavia AB",
-  "graphic_url": "http://larics.rasip.fer.hr/wp-content/uploads/2016/04/default-placeholder.png",
-  "version": "1.0.9"
+  "version": "1.1.0"
 }

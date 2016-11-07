@@ -4,55 +4,69 @@
 |--------------------------------------------------------------------------
 |
 | Welcome to your plugin. Your plugin can have an agent, widget and a application.
-| All of this is accesible through the Dashboard object.
-| Let's go!
+| Documentation can be found at https://github.com/Infomaker/Dashboard-Plugin/wiki.
 |
 */
 
 ((Dashboard, React) => {
 	/**
-	 * Create an Application by extending Application class from Dashboard
-	 * This application will render a paragraph with the text hello world!
+	 * Create an Application by extending the Application class
 	*/
 	class Application extends Dashboard.Application {
 		constructor(props) {
 			super(props)
 
-			// Get components from Dashboard
-			this.components = Dashboard.components()
-
-			// State will be updated with user config
 			this.state = {
 				config: props.config
 			}
 		}
 
 		render() {
-			const { Title } = this.components.GUI
+			const GUI = Dashboard.GUI
 
 			return (
-				<div className="se-infomaker-dashboard-plugin">
-					<Title text="Hello World"/>
-				</div>
+				<GUI.Wrapper className="se-infomaker-dashboard-plugin">
+					<GUI.Title text={this.state.config.pluginTitle || "hello world"}/>
+
+					<GUI.Button text="Open a modal" size="large" onClick={() => this.openModal(Modal)} />
+				</GUI.Wrapper>
 			)
 		}
 	}
 
 	/**
-	 * Create an Widget by extending Widget class from Dashboard
-	 * This widget will render a button from the Dashboard GUI library
+	 * Create an Modal by extending the Modal class
 	*/
-	class Widget extends Dashboard.Widget {
-		render() {
-			const Button = Dashboard.components().GUI.Button
+	class Modal extends Dashboard.Modal {
+		componentWillMount() {
+			this.props.setTitle("My Modal")
+		}
 
-			return <Button text="Dashboard Plugin Widget" click={() => window.open("https://www.google.se/?gws_rd=ssl#q=hello+world")}/>
+		render() {
+			const GUI = Dashboard.GUI
+			const treasures = ["🐢", "🦂", "👑", "🐌", "💍"]
+
+			return (
+				<GUI.Section title="You found a modal">
+					<GUI.Paragraph text={"You opened it and got " + (Math.floor(Math.random() * 5) + 1) + " gems and a " + treasures[Math.floor(Math.random() * treasures.length)]} />
+				</GUI.Section>
+			)
 		}
 	}
 
 	/**
-	 * Create an Agent by extending Agent class from Dashboard
-	 * This agent will do a "poll" each second.
+	 * Create a Widget by extending the Widget class
+	*/
+	class Widget extends Dashboard.Widget {
+		render() {
+			const GUI = Dashboard.GUI
+
+			return <GUI.Button text="Dashboard Plugin Widget" onClick={() => window.open("https://www.google.se/?gws_rd=ssl#q=hello+world")}/>
+		}
+	}
+
+	/**
+	 * Create an Agent by extending the Agent class
 	*/
 	class Agent extends Dashboard.Agent {
 		constructor() {
@@ -62,10 +76,16 @@
 		}
 
 		/**
-		 * This is a example of a super simple agent. Your agent should do something cooler and hopfully more meaningful than this :)
+		 * This is a example of a super simple agent. Your agent should do something more meaningful than this :)
 		*/
 		connect() {
 			console.log("Beep beep, agent is connected...")
+		}
+	}
+
+	class Settings extends Dashboard.Settings {
+		application() {
+			return <Dashboard.GUI.ConfigInput ref="pluginTitle" />
 		}
 	}
 
@@ -73,17 +93,20 @@
 	 * Register your plugin
 	*/
 	Dashboard.register({
-		// Leave this be and it will fetch the data from your manifest file (./manifest.json) in the build steps
+		// Leave this be and it will fetch the data from your manifest file in the build steps
 		bundle: "@plugin_bundle",
 		name: "@plugin_name",
 		author: "@plugin_author",
 		graphic_url: "@graphic_url",
 		version: "@plugin_version",
 
-		// Only of of these are actually required. If you are developing a widget, just remove the application and agent properties.
+		// Only of of these are actually required. If you are developing a widget, just remove the application and agent.
 		application: Application,
 		widget: Widget,
-		agent: Agent
+		agent: Agent,
+
+		// Settings is optional.
+		settings: Settings
 	})
 
 })(window.Dashboard, window.React)

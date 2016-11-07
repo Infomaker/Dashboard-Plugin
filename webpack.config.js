@@ -3,8 +3,7 @@
 | Development config file
 |--------------------------------------------------------------------------
 |
-| This is you webpack development config.
-| Please leave it as it is.
+| This is the default webpack development config.
 |
 */
 
