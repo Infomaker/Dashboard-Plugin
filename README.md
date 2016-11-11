@@ -29,7 +29,7 @@ This will serve your plugin local and that url can be used for install you dev-p
 This will first execute
 	yarn build:prod
 
-The plugin id from the manifest file will be added as part of the key. Example:
+The plugin bundle from the manifest file will be added as part of the key. Example:
     se-infomaker-dashboard-plugin/manifest.json
 
 So your plugin manifest path will be:
