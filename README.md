@@ -2,7 +2,7 @@
 Dashboard Plugin is a starter project for developing Dashboard plugins that contains all the tools you need for writing awesome plugins.
 
 ## 🎉 Dashboard Beta release 🎉 
-The Dashboard will open for third party developers on the hackathon "A Local Hack" in Kalmar, Sweden next week (2016-11-16). This will be an early beta so please report issues or give us feedback [here](https://github.com/Infomaker/Dashboard-Plugin/issues), both for the Dashboard and plugins.
+The Dashboard will open for third party developers on the hackathon **"A Local Hack"** in Kalmar, Sweden next week *(2016-11-16)*. This will be an early beta so please report issues or give us feedback [here](https://github.com/Infomaker/Dashboard-Plugin/issues), both for the Dashboard and plugins.
 
 ## Wiki
 [Learn all the things](https://github.com/Infomaker/Dashboard-Plugin/wiki)
