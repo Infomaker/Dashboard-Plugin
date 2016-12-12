@@ -1,5 +1,5 @@
 {
-  "name": "DashboardPlugin",
+  "name": "dashboard-plugin",
   "version": "1.1.2",
   "description": "Infomaker Dashboard Starter Plugin",
   "main": "webpack.config.js",
