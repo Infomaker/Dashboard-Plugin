@@ -4,9 +4,9 @@
   "description": "Dashboard Plugin Description",
   "author": {
   	"name": "Infomaker Scandinavia AB",
-    "organisation": "Infomaker AB",
+    "organization": "Infomaker AB",
   	"email": "event@infomaker.se",
   	"website": "www.infomaker.se"
   },
-  "version": "1.1.0"
+  "version": "1.1.1"
 }
