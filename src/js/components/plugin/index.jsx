@@ -95,11 +95,6 @@
 	Dashboard.register({
 		// Leave this be and it will fetch the data from your manifest file in the build steps
 		bundle: "@plugin_bundle",
-		name: "@plugin_name",
-		author: "@plugin_author",
-		graphic_url: "@graphic_url",
-		version: "@plugin_version",
-
 		// Only of of these are actually required. If you are developing a widget, just remove the application and agent.
 		application: Application,
 		widget: Widget,

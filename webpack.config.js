@@ -64,11 +64,7 @@ module.exports = {
             loader: 'string-replace',
             query: {
               multiple: [
-                 { search: '@plugin_bundle', replace: manifest.bundle },
-                 { search: '@plugin_name', replace: manifest.name },
-                 { search: '@plugin_author', replace: manifest.author },
-                 { search: '@graphic_url', replace: manifest.graphic_url },
-                 { search: '@plugin_version', replace: manifest.version }
+                 { search: '@plugin_bundle', replace: manifest.bundle }
               ]
             }
           }
