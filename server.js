@@ -31,6 +31,6 @@ app.use(express.static(__dirname + '/build'))
 
 http.listen(process.env.PORT, () => {
 	require('dns').lookup(require('os').hostname(), (err, add, fam) => {
-		console.log("\n🎉  " + manifest.name + " can now be installed from " + add + ":" + process.env.PORT + "\n")
+		console.log("\n🎉  " + manifest.name + " manifest.json served at " + add + ":" + process.env.PORT + "/manifest.json\n")
 	})
 })
