@@ -58,7 +58,17 @@ module.exports = {
 					loader: 'string-replace',
 					query: {
 						multiple: [
+							{ search: '@plugin_bundle_class', replace: manifest.bundle.replace(/\./g, '-') },
 							 { search: '@plugin_bundle', replace: manifest.bundle }
+						]
+					}
+				},
+				{
+					test: /style\.scss$/,
+					loader: 'string-replace',
+					query: {
+						multiple: [
+							 { search: '@plugin_bundle_class', replace: manifest.bundle.replace(/\./g, '-') }
 						]
 					}
 				}
