@@ -28,7 +28,6 @@ module.exports = {
 			"Dashboard",
 			"React"
 		],
-		devtool: 'source-map',
 		postcss: [
 			autoprefixer({
 				browsers: ['last 2 versions']
@@ -53,14 +52,26 @@ module.exports = {
 				}
 			],
 			preLoaders: [
-				{ test: /\.jsx?$/, loader: 'eslint', exclude: /node_modules/ },
+				{
+					test: /\.jsx?$/,
+					loader: 'eslint',
+					exclude: /node_modules/
+				},
 				{
 					test: /index\.jsx$/,
 					loader: 'string-replace',
 					query: {
 						multiple: [
-							{ search: '@plugin_bundle_class', replace: manifest.bundle.replace(/\./g, '-') },
-							 { search: '@plugin_bundle', replace: manifest.bundle }
+							{
+								search: '@plugin_bundle_class',
+								replace: manifest.bundle.replace(/\./g, '-'),
+								flags: 'g'
+							},
+							{
+								search: '@plugin_bundle',
+								replace: manifest.bundle,
+								flags: 'g'
+							}
 						]
 					}
 				},
@@ -69,7 +80,11 @@ module.exports = {
 					loader: 'string-replace',
 					query: {
 						multiple: [
-							 { search: '@plugin_bundle_class', replace: manifest.bundle.replace(/\./g, '-') }
+							{
+								search: '@plugin_bundle_class',
+								replace: manifest.bundle.replace(/\./g, '-'),
+								flags: 'g'
+							}
 						]
 					}
 				}
