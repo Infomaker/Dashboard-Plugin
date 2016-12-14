@@ -28,6 +28,7 @@ module.exports = {
 			"Dashboard",
 			"React"
 		],
+		devtool: 'source-map',
 		postcss: [
 			autoprefixer({
 				browsers: ['last 2 versions']
