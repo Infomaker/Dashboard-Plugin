@@ -24,10 +24,13 @@ module.exports = {
 			filename: "index.js",
 			path: "build",
 		},
-		externals: [
-			"Dashboard",
-			"React"
-		],
+		externals: {
+			"Dashboard": "Dashboard",
+			"React": "React",
+			"react": "React",
+			"ReactDOM": "ReactDOM",
+			"react-dom": "ReactDOM"
+		},
 		postcss: [
 			autoprefixer({
 				browsers: ['last 2 versions']
@@ -105,8 +108,7 @@ module.exports = {
 				'process.env': {
 					'NODE_ENV': JSON.stringify('development')
 				}
-			}),
-			new CopyWebpackPlugin([
+			}),			new CopyWebpackPlugin([
 					{ from: 'manifest.json', to: '.' }
 			])
 		]

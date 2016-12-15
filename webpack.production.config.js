@@ -24,10 +24,13 @@ module.exports = {
 			filename: "index.js",
 			path: "dist",
 		},
-		externals: [
-			"Dashboard",
-			"React"
-		],
+		externals: {
+			"Dashboard": "Dashboard",
+			"React": "React",
+			"react": "React",
+			"ReactDOM": "ReactDOM",
+			"react-dom": "ReactDOM"
+		},
 		postcss: [
 			autoprefixer({
 				browsers: ['last 2 versions']
