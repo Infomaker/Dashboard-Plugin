@@ -21,11 +21,11 @@ Dashboard Plugin is a starter project for developing Dashboard plugins that cont
 	> Serve plugin locally
 	yarn server
 	
-## Local env
+This will serve your plugin local and that url can be used for install you dev-plugin on dev.dashboard.infomaker.io.
+	
+## Start
     > Start local env
     yarn start
-
-This will serve your plugin local and that url can be used for install you dev-plugin on dev.dashboard.infomaker.io.
 
 ## Upload S3
     yarn upload:s3 accessKeyId="YOUR_ACCESS_KEY_ID" secretAccessKey="YOUR_SECRET_ACCESS_KEY" bucket="YOUR_BUCKET"
