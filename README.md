@@ -20,6 +20,10 @@ Dashboard Plugin is a starter project for developing Dashboard plugins that cont
 ## Server
 	> Serve plugin locally
 	yarn server
+	
+## Local env
+    > Start local env
+    yarn start
 
 This will serve your plugin local and that url can be used for install you dev-plugin on dev.dashboard.infomaker.io.
 
