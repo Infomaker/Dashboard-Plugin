@@ -69,7 +69,7 @@
 		render() {
 			const GUI = Dashboard.GUI
 
-			return <GUI.Button text="Dashboard Plugin Widget" onClick={() => window.open("https://www.google.se/?gws_rd=ssl#q=hello+world")}/>
+			return <GUI.WidgetButton text="Dashboard Plugin Widget" onClick={() => window.open("https://www.google.se/?gws_rd=ssl#q=hello+world")}/>
 		}
 	}
 
