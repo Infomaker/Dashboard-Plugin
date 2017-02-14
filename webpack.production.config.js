@@ -122,7 +122,7 @@ module.exports = {
 				}
 			}),
 			new CopyWebpackPlugin([
-					{ from: 'manifest.json', to: '.' }
+				{ from: 'manifest.json', to: '.' }
 			])
 		]
 }

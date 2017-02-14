@@ -11,18 +11,18 @@
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const exec = require('child_process').exec
-const manifest = require('./manifest.json')
+let manifest = require('./manifest.json')
 
 const expectedArgs = ["bucket", "accessKeyId", "secretAccessKey"]
 
 var args = {}
 
 process.argv.forEach(arg => {
-  const parts = arg.split("=")
+	const parts = arg.split("=")
 
-  if (parts[0] && parts[1] && parts.indexOf(parts[0]) > -1) {
-    args[parts[0]] = parts[1]
-  }
+	if (parts[0] && parts[1] && parts.indexOf(parts[0]) > -1) {
+		args[parts[0]] = parts[1]
+	}
 })
 
 console.log("\n ----------------------------")
@@ -40,60 +40,119 @@ if (!args.accessKeyId) {
   return false
 }
 
-const s3Bucket = new AWS.S3({
-  accessKeyId: args.accessKeyId,
-  secretAccessKey: args.secretAccessKey,
-})
+const s3Bucket = new AWS.S3({ accessKeyId: args.accessKeyId, secretAccessKey: args.secretAccessKey })
 
-const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}).replace(/\s/g, '')
+const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}).replace(/\s/g, '')
 const baseKey = manifest.bundle.replace(/\./g, '-').toLowerCase()
 
-s3Bucket.upload({
-  Bucket: args.bucket,
-  Key: baseKey + "/index.js",
-  Body: fs.readFileSync("dist/index.js"),
-  ContentType: "text/javascript",
-  ContentEncoding: "UTF-8",
-  ACL: 'public-read'
-}, (err, data) => {
-    if (err) {
-      console.log("💥  " + err)
-  } else {
-    console.log("\n> uploaded index > " + data.Location + "\n")
+fs.readFile('./icon.png', (err, pluginIconData) => {
+	const shouldUploadPluginIcon = !err && pluginIconData
 
-    s3Bucket.upload({
-      Bucket: args.bucket,
-      Key: baseKey + "/style.css",
-      Body: fs.readFileSync("dist/style.css"),
-      ContentType: "text/css",
-      ContentEncoding: "UTF-8",
-      ACL: 'public-read'
-    }, (err, data) => {
-        if (err) {
-          console.log("💥  " + err)
-      } else {
+	uploadIndexJS().then(location => {
+		console.log("\n> uploaded index > " + location + "\n")
 
-        console.log("> uploaded style > " + data.Location + "\n")
+		uploadStyleCSS().then(location => console.log("> uploaded style > " + location + "\n")).catch(err => console.log("💥  " + err))
 
-        s3Bucket.upload({
-          Bucket: args.bucket,
-          Key: baseKey + "/manifest.json",
-          Body: fs.readFileSync("dist/manifest.json"),
-          ContentType: "text/css",
-          ContentEncoding: "UTF-8",
-          ACL: 'public-read'
-        }, (err, data) => {
-            if (err) {
-            console.log("💥  " + err)
-          } else {
-            console.log("> uploaded manifest > " + data.Location + "\n")
+		const uploadManifest = () => {
+			uploadManifestJSON().then(location => {
+				console.log("> uploaded manifest > " + location + "\n")
 
-            const path = data.Location.replace("/manifest.json", "")
+				console.log("🎉  Successfully uploaded " + manifest.name + " to " + location.replace("/manifest.json", ""))
+			}).catch(err => console.log("💥  " + err))
+		}
 
-            console.log("🎉  Successfully uploaded " + manifest.name + " to " + path)
-          }
-        })
-      }
-    })
-  }
+		if (shouldUploadPluginIcon) {
+			uploadPluginIcon(pluginIconData).then(location => {
+				console.log("> uploaded plugin icon > " + location + "\n")
+
+				if (manifest.graphic_url != location) {
+					manifest.graphic_url = location
+
+					fs.writeFile('./manifest.json', JSON.stringify(manifest, null, 4), 'utf8', err => {
+						if (!err) {
+							uploadManifest()
+						} else {
+							console.log("> failed to set manifest graphic url... (will continue to upload manifest) \n")
+
+							uploadManifest()
+						}
+					})
+				}
+			}).catch(err => console.log("💥  " + err))
+		} else {
+			uploadManifest()
+
+			if (manifest.graphic_url) {
+				delete manifest.graphic_url
+				fs.writeFile('./manifest.json', JSON.stringify(manifest, null, 4), 'utf8', () => remove("icon.png"))
+			}
+		}
+
+	}).catch(err => console.log("💥  " + err))
 })
+
+function uploadIndexJS() {
+	return new Promise((resolve, reject) => {
+		upload({
+			resolve: resolve,
+			reject: reject,
+			key: "index.js",
+			data: fs.readFileSync("dist/index.js"),
+			contentType: "text/javascript"
+		})
+	})
+}
+
+function uploadStyleCSS() {
+	return new Promise((resolve, reject) => {
+		upload({
+			resolve: resolve,
+			reject: reject,
+			key: "style.css",
+			data: fs.readFileSync("dist/style.css"),
+			contentType: "text/css"
+		})
+	})
+}
+
+function uploadPluginIcon(data) {
+	return new Promise((resolve, reject) => {
+		upload({
+			resolve: resolve,
+			reject: reject,
+			key: "icon.png",
+			data: data,
+			contentType: "image/png"
+		})
+	})
+}
+
+function uploadManifestJSON() {
+	return new Promise((resolve, reject) => {
+		upload({
+			resolve: resolve,
+			reject: reject,
+			key: "manifest.json",
+			data: fs.readFileSync("dist/manifest.json"),
+			contentType: "application/json"
+		})
+	})
+}
+
+function upload(params) {
+	s3Bucket.upload({
+		Bucket: args.bucket,
+		Key: baseKey  + "/" + params.key,
+		Body: params.data,
+		ContentType: params.contentType,
+		ContentEncoding: "UTF-8",
+		ACL: "public-read"
+	}, (err, data) => err ? params.reject(err) : params.resolve(data.Location))
+}
+
+function remove(key) {
+	s3Bucket.deleteObject({
+		Bucket: args.bucket,
+		Key: baseKey + "/" + key
+	}, (err, data) => {})
+}
