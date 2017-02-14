@@ -1,5 +1,5 @@
 {
-    "bundle": "se.infomaker.dashboard-plugin-icon-upload",
+    "bundle": "se.infomaker.dashboard-plugin",
     "name": "Dashboard Plugin",
     "description": "Infomaker Dashboard Starter Plugin",
     "author": {
