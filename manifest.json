@@ -1,12 +1,12 @@
 {
-  "bundle": "se.infomaker.dashboard-plugin",
-  "name": "Dashboard Plugin",
-  "description": "Infomaker Dashboard Starter Plugin",
-  "author": {
-    "name": "Johan Sundén",
-    "email": "johan.sunden@infomaker.se",
-    "organization": "Infomaker AB",
-    "website": "www.infomaker.se"
-  },
-  "version": "1.0.0"
+    "bundle": "se.infomaker.dashboard-plugin",
+    "name": "Dashboard Plugin",
+    "description": "Infomaker Dashboard Starter Plugin",
+    "author": {
+        "name": "Johan Sundén",
+        "email": "johan.sunden@infomaker.se",
+        "organization": "Infomaker AB",
+        "website": "www.infomaker.se"
+    },
+    "version": "1.0.0"
 }
