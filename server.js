@@ -16,7 +16,7 @@ const cors = require('cors')
 const http = require('http').Server(app)
 const manifest = require('./manifest.json')
 
-process.env.PORT = process.env.PORT || 7000
+process.env.PORT = 7000
 
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*")
