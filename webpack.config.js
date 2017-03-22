@@ -33,7 +33,7 @@ module.exports = {
 		},
 		postcss: [
 			autoprefixer({
-				browsers: ['last 2 versions']
+				browsers: ['last 4 versions']
 			})
 		],
 		module: {
