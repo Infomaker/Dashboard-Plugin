@@ -7,27 +7,14 @@ Dashboard Plugin is a starter project for developing Dashboard plugins that cont
 ## Prerequisites
 * Yarn - https://github.com/yarnpkg/yarn (because npm is so 2016).
 
-## Setup
+## Install dependencies
     yarn
-
-## Build
-    > Build development package
-    yarn dev
-
-    > Build production package
-    yarn build:prod
-
-## Server
-	> Serve plugin locally
-	yarn server
-	
-This will serve your plugin local and that url can be used for install you dev-plugin on dev.dashboard.infomaker.io.
-	
-## Start
-    > Start local env
+    
+## In development
+    > Start server and serve build
     yarn start
 
-## Upload S3
+## For production, upload to S3
     yarn upload:s3 accessKeyId="YOUR_ACCESS_KEY_ID" secretAccessKey="YOUR_SECRET_ACCESS_KEY" bucket="YOUR_BUCKET"
 
 This will first execute
