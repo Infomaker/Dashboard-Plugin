@@ -77,6 +77,8 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 							uploadManifest()
 						}
 					})
+				} else {
+					uploadManifest()
 				}
 			}).catch(err => console.log("💥  " + err))
 		} else {
