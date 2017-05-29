@@ -20,6 +20,7 @@ process.env.PORT = 7000
 
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*")
+	res.header("Content-Type", "application/json; charset=utf-8")
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Access-Token")
 	res.header("Access-Control-Allow-Methods", "DELETE, GET, HEAD, POST, PUT, OPTIONS, TRACE")
 	next()
