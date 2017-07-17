@@ -43,6 +43,11 @@
 	 * Read more about Modal (https://github.com/Infomaker/Dashboard-Plugin/wiki/Modal)
 	*/
 	class Modal extends Dashboard.Modal {
+		constructor(props) {
+			super(props)
+
+		}
+		
 		componentWillMount() {
 
 			// Call setTitle to set the component most upper title.
