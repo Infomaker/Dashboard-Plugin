@@ -20,10 +20,6 @@
     "upload:s3": "yarn build:prod && node ./s3.js",
     "build:prod": "webpack --config webpack.production.config.js --production --minimize --progress --colors"
   },
-  "engines": {
-    "node": "^7.0.0",
-    "yarn": "^0.16.1"
-  },
   "dependencies": {
   },
   "devDependencies": {
