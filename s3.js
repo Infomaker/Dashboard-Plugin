@@ -44,10 +44,10 @@ const s3Bucket = new AWS.S3({ accessKeyId: args.accessKeyId, secretAccessKey: ar
 
 const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}).replace(/\s/g, '')
 
-const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase();
-const majorVersionPath = manifest.version.replace(/\./g, '-').toLowerCase().charAt(0)
-const baseKey = `${bundlePath}/v${majorVersionPath}`;
-
+const versionPaths = manifest.version.split(".")
+const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase()
+const majorVersionPath = versionPaths[0]
+const baseKey = `${bundlePath}/v${majorVersionPath}`
 
 fs.readFile('./icon.png', (err, pluginIconData) => {
 	const shouldUploadPluginIcon = !err && pluginIconData
