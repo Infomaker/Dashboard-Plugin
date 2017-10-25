@@ -43,7 +43,11 @@ if (!args.accessKeyId) {
 const s3Bucket = new AWS.S3({ accessKeyId: args.accessKeyId, secretAccessKey: args.secretAccessKey })
 
 const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}).replace(/\s/g, '')
-const baseKey = manifest.bundle.replace(/\./g, '-').toLowerCase()
+
+const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase();
+const majorVersionPath = manifest.version.replace(/\./g, '-').toLowerCase().charAt(0)
+const baseKey = `${bundlePath}/v${majorVersionPath}`;
+
 
 fs.readFile('./icon.png', (err, pluginIconData) => {
 	const shouldUploadPluginIcon = !err && pluginIconData
