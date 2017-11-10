@@ -15,8 +15,9 @@ const app = express()
 const cors = require('cors')
 const http = require('http').Server(app)
 const manifest = require('./manifest.json')
+const ip = require('ip')
 
-process.env.PORT = 7000
+const PORT = process.env.PORT || 7000
 
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*")
@@ -34,8 +35,4 @@ app.use(cors())
 
 app.use(express.static(__dirname + '/build'))
 
-http.listen(process.env.PORT, () => {
-	require('dns').lookup(require('os').hostname(), (err, add, fam) => {
-		console.log("\n🎉  " + manifest.name + " manifest.json served at " + "http://" + add + ":" + process.env.PORT + "/manifest.json\n")
-	})
-})
+http.listen(PORT, () => console.log("\n🎉  " + manifest.name + " manifest.json served at " + "http://" + ip.address() + ":" + PORT + "/manifest.json\nUse this url to install the plugin at http://dev.dashboard.infomaker.io"))
