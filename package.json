@@ -1,6 +1,6 @@
 {
   "name": "dashboard-plugin",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "license": "ISC",
   "description": "Infomaker Dashboard Starter Plugin",
   "homepage": "https://github.com/Infomaker/Dashboard-Plugin",
@@ -14,13 +14,16 @@
   "bugs": "https://github.com/Infomaker/Dashboard-Plugin/issues",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "npm-run-all --parallel server dev",
+    "start": "npm-run-all prompt --parallel server dev",
+    "prompt": "node ./prompt.js",
     "dev": "webpack --content-base build/ --config webpack.config.js --hot --progress --colors --watch",
     "server": "nodemon server.js",
     "upload:s3": "yarn build:prod && node ./s3.js",
     "build:prod": "webpack --config webpack.production.config.js --production --minimize --progress --colors"
   },
   "devDependencies": {
+    "prompt": "1.0.0",
+    "colors": "1.1.2",
     "autoprefixer": "^6.4.0",
     "aws-sdk": "^2.4.0",
     "babel-cli": "^6.6.5",
