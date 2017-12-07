@@ -8,5 +8,6 @@
         "organization": "Infomaker AB",
         "website": "www.infomaker.se"
     },
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "wiki_url": "https://github.com/Infomaker/Dashboard-Plugin/wiki"
 }
