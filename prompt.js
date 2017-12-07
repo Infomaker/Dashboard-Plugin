@@ -9,15 +9,14 @@ const manifestSchema = {
 	properties: {
 		name: {
 			description: colors.green('Enter your Plugin name'),
-			required: true,
-			default: manifest_template.name
+			message: colors.red('Invalid plugin name'),
+			required: true
 		},
 		bundle: {
 			description: colors.green('Enter your Plugin bundle'),
 			pattern: /^\w{2,}[.][\w-]{1,}[.][\w-]{2,}$/g,
-			message: colors.red('Invalid bundle!\nPlugin bundle must be inverse domain name, example: "se.infomaker.dashboard-plugin"'),
-			required: true,
-			default: manifest_template.bundle
+			message: colors.red('Invalid bundle. \nPlugin bundle must be reverse domain style, example: "se.infomaker.dashboard-plugin"'),
+			required: true
 		}
 	}
 }
@@ -37,7 +36,7 @@ fs.readFile('./manifest.json', (err, data) => {
 			return prompt
 		}
 
-		console.log(colors.yellow('Welcome to Dashboard Plugin, please enter these requirements properties to continue with your Plugin\n'))
+		console.log(colors.yellow('Dashboard Plugin setup. Follow the setup to create a manifest.json. These values can be changed in the manifest at a later time after the setup.\n'))
 	
 		prompt.start()
 	
@@ -56,7 +55,7 @@ fs.readFile('./manifest.json', (err, data) => {
 					console.log(`\t ${colors.bgWhite(colors.black('🎉 manifest file has been updated 🎉.'))}`)
 					console.log(`\t ${colors.bgWhite(colors.black("-----------------------------------"))}`)
 				} else {
-					console.log('Failed to update manifest.json, continue with default values 🚫')
+					console.log('Failed to update manifest.json')
 				}
 			})
 	
