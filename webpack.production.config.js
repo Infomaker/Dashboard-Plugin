@@ -13,10 +13,13 @@ const manifest = require('./manifest.json')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const autoprefixer = require('autoprefixer')
+const colors = require("colors/safe")
 
-console.log("\n ----------------------------")
-console.log(" Plugin production build ")
-console.log(" ----------------------------\n")
+console.log('\n')
+console.log(`\t ${colors.bgWhite(colors.black(" ------------------------- "))}`)
+console.log(`\t ${colors.bgWhite(colors.black("  Plugin production build  "))}`)
+console.log(`\t ${colors.bgWhite(colors.black(" ------------------------- "))}`)
+console.log('\n')
 
 module.exports = {
 		entry: "./src/js/main.js",
