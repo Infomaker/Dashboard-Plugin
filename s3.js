@@ -11,6 +11,7 @@
 const AWS = require('aws-sdk')
 const fs = require('fs')
 const exec = require('child_process').exec
+const colors = require("colors/safe")
 let manifest = require('./manifest.json')
 
 const expectedArgs = ["bucket", "accessKeyId", "secretAccessKey"]
@@ -25,9 +26,11 @@ process.argv.forEach(arg => {
 	}
 })
 
-console.log("\n ----------------------------")
-console.log(" Plugin S3 plugin uploader ")
-console.log(" ----------------------------\n")
+console.log('\n')
+console.log(`\t ${colors.bgWhite(colors.black(" --------------------------- "))}`)
+console.log(`\t ${colors.bgWhite(colors.black("  Plugin S3 plugin uploader  "))}`)
+console.log(`\t ${colors.bgWhite(colors.black(" --------------------------- "))}`)
+console.log('\n')
 
 if (!args.accessKeyId) {
   console.log("💥  Failed to upload plugin, missing arg accessKeyId")
@@ -65,37 +68,63 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 			}).catch(err => console.log("💥  " + err))
 		}
 
-		if (shouldUploadPluginIcon) {
-			uploadPluginIcon(pluginIconData).then(location => {
-				console.log("> uploaded plugin icon > " + location + "\n")
+		uploadIcon(shouldUploadPluginIcon, pluginIconData).then(iconLocation => {
+			if (iconLocation) {
+				console.log("> uploaded plugin icon > " + iconLocation + "\n")
 
-				if (manifest.graphic_url != location) {
-					manifest.graphic_url = location
-
-					fs.writeFile('./manifest.json', JSON.stringify(manifest, null, 4), 'utf8', err => {
-						if (!err) {
-							uploadManifest()
-						} else {
-							console.log("> failed to set manifest graphic url... (will continue to upload manifest) \n")
-
-							uploadManifest()
-						}
-					})
-				} else {
-					uploadManifest()
-				}
-			}).catch(err => console.log("💥  " + err))
-		} else {
-			uploadManifest()
-
-			if (manifest.graphic_url) {
-				delete manifest.graphic_url
-				fs.writeFile('./manifest.json', JSON.stringify(manifest, null, 4), 'utf8', () => remove("icon.png"))
+				manifest.graphic_url = iconLocation
 			}
-		}
 
+			uploadMarkdown().then(markDownLocation => {
+				if (markDownLocation) {
+					console.log("> uploaded plugin markdown > " + markDownLocation + "\n")
+
+					manifest.markdown_url = markDownLocation
+				}
+
+				updateManifestFile().then(() => uploadManifest())
+			})
+		})
 	}).catch(err => console.log("💥  " + err))
 })
+
+function updateManifestFile() {
+	return new Promise(resolve => {
+		fs.writeFile('./manifest.json', JSON.stringify(manifest, null, 4), 'utf8', err => {
+			if (!err) {
+				resolve()
+			} else {
+				console.log("> failed to set manifest properties (will continue to upload manifest) \n")
+
+				resolve()
+			}
+		})
+	})
+}
+
+function uploadIcon(shouldUploadPluginIcon, pluginIconData) {
+	return new Promise(resolve => {
+		if (shouldUploadPluginIcon) {
+			uploadPluginIcon(pluginIconData).then(iconLocation => resolve(iconLocation)).catch(err => {
+                console.log("💥  " + err)
+
+                resolve(null)
+            })
+		} else {
+			resolve(null)
+		}
+	})
+}
+
+function uploadMarkdown() {
+	return new Promise(resolve => {
+		uploadMarkdownMD().then(markDownLocation => resolve(markDownLocation)).catch(err => {
+            console.log("💥  " + err)
+
+            resolve(null)
+        })
+	})
+}
 
 function uploadIndexJS() {
 	return new Promise((resolve, reject) => {
@@ -133,13 +162,31 @@ function uploadPluginIcon(data) {
 	})
 }
 
+function uploadMarkdownMD() {
+	return new Promise((resolve, reject) => {
+		fs.readFile('./markdown.md', (err, pluginMarkDown) => {
+			if (!err && pluginMarkDown) {
+				upload({
+					resolve: resolve,
+					reject: reject,
+					key: "markdown.md",
+					data: pluginMarkDown,
+					contentType: "text/markdown"
+				})
+			} else {
+				resolve(null)
+			}
+		})
+	})
+}
+
 function uploadManifestJSON() {
 	return new Promise((resolve, reject) => {
 		upload({
 			resolve: resolve,
 			reject: reject,
 			key: "manifest.json",
-			data: fs.readFileSync("dist/manifest.json"),
+			data: JSON.stringify(manifest, null, 4),
 			contentType: "application/json"
 		})
 	})
