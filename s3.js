@@ -116,16 +116,6 @@ function uploadIcon(shouldUploadPluginIcon, pluginIconData) {
 	})
 }
 
-function uploadMarkdown() {
-	return new Promise(resolve => {
-		uploadMarkdownMD().then(markDownLocation => resolve(markDownLocation)).catch(err => {
-            console.log("💥  " + err)
-
-            resolve(null)
-        })
-	})
-}
-
 function uploadIndexJS() {
 	return new Promise((resolve, reject) => {
 		upload({
@@ -162,13 +152,16 @@ function uploadPluginIcon(data) {
 	})
 }
 
-function uploadMarkdownMD() {
-	return new Promise((resolve, reject) => {
+function uploadMarkdown() {
+	return new Promise(resolve => {
 		fs.readFile('./markdown.md', (err, pluginMarkDown) => {
 			if (!err && pluginMarkDown) {
 				upload({
 					resolve: resolve,
-					reject: reject,
+					reject: err => {
+						console.log("💥  " + err)
+						resolve(null)
+					},
 					key: "markdown.md",
 					data: pluginMarkDown,
 					contentType: "text/markdown"
