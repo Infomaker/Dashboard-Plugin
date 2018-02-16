@@ -75,14 +75,22 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 				manifest.graphic_url = iconLocation
 			}
 
-			uploadMarkdown().then(markDownLocation => {
-				if (markDownLocation) {
-					console.log("> uploaded plugin markdown > " + markDownLocation + "\n")
+			uploadThumbnail().then(thumbnailLocation => {
+				if (thumbnailLocation) {
+					console.log("> uploaded plugin thumbnail > " + thumbnailLocation + "\n")
 
-					manifest.markdown_url = markDownLocation
+					manifest.thumbnail_url = thumbnailLocation
 				}
 
-				updateManifestFile().then(() => uploadManifest())
+				uploadMarkdown().then(markDownLocation => {
+					if (markDownLocation) {
+						console.log("> uploaded plugin markdown > " + markDownLocation + "\n")
+	
+						manifest.markdown_url = markDownLocation
+					}
+	
+					updateManifestFile().then(() => uploadManifest())
+				})
 			})
 		})
 	}).catch(err => console.log("💥  " + err))
@@ -113,6 +121,27 @@ function uploadIcon(shouldUploadPluginIcon, pluginIconData) {
 		} else {
 			resolve(null)
 		}
+	})
+}
+
+function uploadThumbnail() {
+	return new Promise(resolve => {
+		fs.readFile('./thumbnail.png', (err, pluginThumbnail) => {
+			if (!err && pluginThumbnail) {
+				upload({
+					resolve: resolve,
+					reject: err => {
+						console.log("💥  " + err)
+						resolve(null)
+					},
+					key: "thumbnail.png",
+					data: pluginThumbnail,
+					contentType: "image/png"
+				})
+			} else {
+				resolve(null)
+			}
+		})
 	})
 }
 
