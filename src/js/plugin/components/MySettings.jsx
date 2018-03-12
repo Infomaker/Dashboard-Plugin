@@ -2,7 +2,7 @@
  * Create settings for you plugin by extending the Dashboard.Settings component
 */
 
-import { Settings } from 'Dashboard'
+import { Settings, GUI } from 'Dashboard'
 
 export default class MySettings extends Settings {
 	// Plugin settings will be displayed in the store. These settings will be available for Agent, Widget and Application.
