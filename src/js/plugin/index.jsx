@@ -11,10 +11,17 @@
 
 import { register } from 'Dashboard'
 import MyAgent from './components/MyAgent'
-import MyHealth from './components/MyHealth'
 import MyWidget from './components/MyWidget'
 import MySettings from './components/MySettings'
 import MyApplication from './components/MyApplication'
+
+
+/**
+ * You can also create an Health by extending the Health class from Dashboard (Dashboard.Health).
+ * Don't forget to register it as well.
+ * Read more about Health (https://github.com/Infomaker/Dashboard-Plugin/wiki/Health)
+*/
+
 
 (() => {
 	/**
@@ -27,7 +34,6 @@ import MyApplication from './components/MyApplication'
 		
 		// Only one of these are actually required. If you are developing a widget, just remove the application and agent.
 		agent: MyAgent,
-		health: MyHealth,
 		widget: MyWidget,
 		application: MyApplication,
 
