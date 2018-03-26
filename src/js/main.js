@@ -8,5 +8,5 @@
 |
 */
 
-require('./components/plugin/style.scss')
-require('./components/plugin/index.jsx')
+require('./plugin/style.scss')
+require('./plugin/index.jsx')

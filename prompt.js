@@ -51,9 +51,9 @@ fs.readFile('./manifest.json', (err, data) => {
 		
 			fs.writeFile('./manifest.json', JSON.stringify(manifest_template, null, 4), 'utf8', err => {
 				if (!err) {
-					console.log(`\t ${colors.bgWhite(colors.black("-----------------------------------"))}`)
-					console.log(`\t ${colors.bgWhite(colors.black('🎉 manifest file has been updated 🎉.'))}`)
-					console.log(`\t ${colors.bgWhite(colors.black("-----------------------------------"))}`)
+					console.log(`\t ${colors.bgWhite(colors.black("------------------------------------"))}`)
+					console.log(`\t ${colors.bgWhite(colors.black('🎉 manifest file has been updated 🎉'))}`)
+					console.log(`\t ${colors.bgWhite(colors.black("------------------------------------"))}`)
 				} else {
 					console.log('Failed to update manifest.json')
 				}

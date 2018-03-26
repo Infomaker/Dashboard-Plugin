@@ -22,97 +22,111 @@ console.log(`\t ${colors.bgWhite(colors.black(" --------------------------- "))}
 console.log('\n')
 
 module.exports = {
-		entry: "./src/js/main.js",
-		output: {
-			filename: "index.js",
-			path: "build",
-		},
-		externals: {
-			"Dashboard": "Dashboard",
-			"React": "React",
-			"react": "React",
-			"ReactDOM": "ReactDOM",
-			"react-dom": "ReactDOM"
-		},
-		postcss: [
-			autoprefixer({
-				browsers: ['last 4 versions']
-			})
+	entry: "./src/js/main.js",
+	output: {
+		filename: "index.js",
+		path: "build",
+	},
+	externals: {
+		"Dashboard": "Dashboard",
+		"React": "React",
+		"react": "React",
+		"ReactDOM": "ReactDOM",
+		"react-dom": "ReactDOM"
+	},
+	postcss: [
+		autoprefixer({
+			browsers: ['last 4 versions']
+		})
+	],
+	module: {
+		loaders: [
+			{
+				test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+				loader: 'url-loader?limit=100000'
+			},
+			{
+				test: /\.scss$/,
+				loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
+			},
+			{
+				test: /\.jsx?$/,
+				exclude: /(node_modules)/,
+				loaders: [
+					'babel?presets[]=stage-0,presets[]=react,presets[]=es2015'
+				]
+			},
+			{
+				test: /\.json$/,
+				loader: "json-loader"
+			}
 		],
-		module: {
-			loaders: [
-				{
-					test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-					loader: 'url-loader?limit=100000'
-				},
-				{
-					test: /\.scss$/,
-					loader: ExtractTextPlugin.extract('style', 'css!postcss!sass')
-				},
-				{
-					test: /\.jsx?$/,
-					exclude: /(node_modules)/,
-					loaders: [
-						'babel?presets[]=stage-0,presets[]=react,presets[]=es2015'
+		preLoaders: [
+			{
+				test: /\.jsx?$/,
+				loader: 'eslint',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.jsx?$/,
+				loader: 'string-replace',
+				query: {
+					multiple: [
+						{
+							search: '@plugin_bundle_class',
+							replace: manifest.bundle.replace(/\./g, '-').toLowerCase(),
+							flags: 'g'
+						},
+						{
+							search: '@plugin_bundle',
+							replace: manifest.bundle,
+							flags: 'g'
+						},
+						{
+							search: '@plugin_version',
+							replace: manifest.version,
+							flags: 'g'
+						}
 					]
 				}
-			],
-			preLoaders: [
-				{
-					test: /\.jsx?$/,
-					loader: 'eslint',
-					exclude: /node_modules/
-				},
-				{
-					test: /index\.jsx$/,
-					loader: 'string-replace',
-					query: {
-						multiple: [
-							{
-								search: '@plugin_bundle_class',
-								replace: manifest.bundle.replace(/\./g, '-'),
-								flags: 'g'
-							},
-							{
-								search: '@plugin_bundle',
-								replace: manifest.bundle,
-								flags: 'g'
-							}
-						]
-					}
-				},
-				{
-					test: /style\.scss$/,
-					loader: 'string-replace',
-					query: {
-						multiple: [
-							{
-								search: '@plugin_bundle_class',
-								replace: manifest.bundle.replace(/\./g, '-'),
-								flags: 'g'
-							}
-						]
-					}
+			},
+			{
+				test: /\.scss$/,
+				loader: 'string-replace',
+				query: {
+					multiple: [
+						{
+							search: '@plugin_bundle_class',
+							replace: manifest.bundle.replace(/\./g, '-'),
+							flags: 'g'
+						}
+					]
 				}
-			]
-		},
-		cssLoader: {
-			modules: false,
-			importLoaders: 1,
-			sourceMap: true
-		},
-		eslint: {
-			failOnWarning: false,
-			failOnError: true
-		},
-		plugins: [
-			new ExtractTextPlugin("style.css"),
-			new webpack.DefinePlugin({
-				'process.env': {
-					'NODE_ENV': JSON.stringify('development')
-				}
-			}),			new CopyWebpackPlugin([
-					{ from: 'manifest.json', to: '.' }
-			])
+			}
 		]
+	},
+	cssLoader: {
+		modules: false,
+		importLoaders: 1,
+		sourceMap: false
+	},
+	eslint: {
+		failOnWarning: false,
+		failOnError: true
+	},
+	resolve: {
+		extensions: ['', '.js', '.json', '.jsx']
+	},
+	plugins: [
+		new ExtractTextPlugin("style.css"),
+		new webpack.DefinePlugin({
+			'process.env': {
+				'NODE_ENV': JSON.stringify('development')
+			}
+		}),
+		new CopyWebpackPlugin([{
+			from: 'manifest.json',
+			to: '.'
+		}])
+	]
 }
