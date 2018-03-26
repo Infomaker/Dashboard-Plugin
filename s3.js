@@ -12,8 +12,9 @@ const AWS = require('aws-sdk')
 const fs = require('fs')
 const exec = require('child_process').exec
 const colors = require("colors/safe")
+const zlib = require('zlib')
+
 let manifest = require('./manifest.json')
-const zlib = require('zlib');
 
 const expectedArgs = ["bucket", "accessKeyId", "secretAccessKey"]
 
@@ -46,11 +47,11 @@ if (!args.accessKeyId) {
 
 const s3Bucket = new AWS.S3({ accessKeyId: args.accessKeyId, secretAccessKey: args.secretAccessKey })
 
-const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}).replace(/\s/g, '')
 
-const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase();
-const versionPath = manifest.version.replace(/\./g, '-').toLowerCase();
-const baseKey = `${bundlePath}/${versionPath}`;
+const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase()
+const versionPaths = manifest.version.split(".")
+const majorVersionPath = versionPaths[0]
+const baseKey = `${bundlePath}/v${majorVersionPath}`
 
 fs.readFile('./icon.png', (err, pluginIconData) => {
 	const shouldUploadPluginIcon = !err && pluginIconData
@@ -68,6 +69,10 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 			}).catch(err => console.log("💥  " + err))
 		}
 
+		/**
+		 * Check if icon.png is exist.
+		 * Upload icon.png
+		*/
 		uploadIcon(shouldUploadPluginIcon, pluginIconData).then(iconLocation => {
 			if (iconLocation) {
 				console.log("> uploaded plugin icon > " + iconLocation + "\n")
@@ -75,6 +80,10 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 				manifest.graphic_url = iconLocation
 			}
 
+			/**
+			 * Check if thumbnail.png is exist.
+			 * Upload thumbnail.png
+			*/
 			uploadThumbnail().then(thumbnailLocation => {
 				if (thumbnailLocation) {
 					console.log("> uploaded plugin thumbnail > " + thumbnailLocation + "\n")
@@ -82,13 +91,27 @@ fs.readFile('./icon.png', (err, pluginIconData) => {
 					manifest.thumbnail_url = thumbnailLocation
 				}
 
+				/**
+				 * Check if markdown.md is exist.
+				 * Upload markdown.md
+				*/
 				uploadMarkdown().then(markDownLocation => {
 					if (markDownLocation) {
 						console.log("> uploaded plugin markdown > " + markDownLocation + "\n")
 	
 						manifest.markdown_url = markDownLocation
 					}
-	
+
+					/**
+					 * Set timestamp as a build version to avoid browser cache.
+					 * buildVersion won't be stored with plugin data.
+					*/
+					manifest.buildVersion = Date.now()
+					
+					/**
+					 * Update the manifest file with new urls
+					 * Upload manifest.json
+					*/
 					updateManifestFile().then(() => uploadManifest())
 				})
 			})
