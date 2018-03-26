@@ -13,6 +13,7 @@ const fs = require('fs')
 const exec = require('child_process').exec
 const colors = require("colors/safe")
 let manifest = require('./manifest.json')
+const zlib = require('zlib');
 
 const expectedArgs = ["bucket", "accessKeyId", "secretAccessKey"]
 
@@ -47,10 +48,9 @@ const s3Bucket = new AWS.S3({ accessKeyId: args.accessKeyId, secretAccessKey: ar
 
 const pluginName = manifest.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}).replace(/\s/g, '')
 
-const versionPaths = manifest.version.split(".")
-const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase()
-const majorVersionPath = versionPaths[0]
-const baseKey = `${bundlePath}/v${majorVersionPath}`
+const bundlePath = manifest.bundle.replace(/\./g, '-').toLowerCase();
+const versionPath = manifest.version.replace(/\./g, '-').toLowerCase();
+const baseKey = `${bundlePath}/${versionPath}`;
 
 fs.readFile('./icon.png', (err, pluginIconData) => {
 	const shouldUploadPluginIcon = !err && pluginIconData
@@ -147,24 +147,34 @@ function uploadThumbnail() {
 
 function uploadIndexJS() {
 	return new Promise((resolve, reject) => {
-		upload({
-			resolve: resolve,
-			reject: reject,
-			key: "index.js",
-			data: fs.readFileSync("dist/index.js"),
-			contentType: "text/javascript"
+		zlib.gzip(fs.readFileSync("dist/index.js"), (error, result) => {
+			if (error) throw error
+
+			upload({
+				resolve: resolve,
+				reject: reject,
+				key: "index.js",
+				data: result,
+				contentType: "text/javascript",
+				contentEncoding: "gzip"
+			})
 		})
 	})
 }
 
 function uploadStyleCSS() {
 	return new Promise((resolve, reject) => {
-		upload({
-			resolve: resolve,
-			reject: reject,
-			key: "style.css",
-			data: fs.readFileSync("dist/style.css"),
-			contentType: "text/css"
+		zlib.gzip(fs.readFileSync("dist/style.css"), (error, result) => {
+			if (error) throw error
+
+			upload({
+				resolve: resolve,
+				reject: reject,
+				key: "style.css",
+				data: result,
+				contentType: "text/css",
+				contentEncoding: "gzip"
+			})
 		})
 	})
 }
@@ -220,7 +230,7 @@ function upload(params) {
 		Key: baseKey  + "/" + params.key,
 		Body: params.data,
 		ContentType: params.contentType,
-		ContentEncoding: "UTF-8",
+		ContentEncoding: params.contentEncoding || "UTF-8",
 		ACL: "public-read"
 	}, (err, data) => err ? params.reject(err) : params.resolve(data.Location))
 }
