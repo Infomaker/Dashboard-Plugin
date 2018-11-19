@@ -3,10 +3,10 @@
     "name": "Dashboard Plugin",
     "description": "Infomaker Dashboard Starter Plugin",
     "author": {
-        "name": "Johan Sundén",
-        "email": "johan.sunden@infomaker.se",
-        "organization": "Infomaker AB",
-        "website": "www.infomaker.se"
+        "name": "Developer name",
+        "email": "developer@infomaker.io",
+        "organization": "Infomaker Scandinavia AB",
+        "website": "www.infomaker.io"
     },
     "version": "1.0.0",
     "wiki_url": "https://github.com/Infomaker/Dashboard-Plugin/wiki"
