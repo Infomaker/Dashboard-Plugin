@@ -4,9 +4,9 @@
     "description": "Infomaker Dashboard Starter Plugin",
     "author": {
         "name": "Developer name",
-        "email": "developer@email.com",
-        "organization": "Developer organisation",
-        "website": "www.developer-site.com"
+        "email": "developer@infomaker.io",
+        "organization": "Infomaker Scandinavia AB",
+        "website": "www.infomaker.io"
     },
     "version": "1.0.0",
     "wiki_url": "https://github.com/Infomaker/Dashboard-Plugin/wiki"

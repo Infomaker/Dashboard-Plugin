@@ -1,29 +1,28 @@
 {
   "name": "dashboard-plugin",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "license": "ISC",
   "description": "Infomaker Dashboard Starter Plugin",
   "homepage": "https://github.com/Infomaker/Dashboard-Plugin",
   "repository": "https://github.com/Infomaker/Dashboard-Plugin",
   "private": true,
   "bugs": "https://github.com/Infomaker/Dashboard-Plugin/issues",
-  "main": "webpack.config.js",
+  "main": "__tooling__/webpack/webpack.dev.config.js",
   "scripts": {
     "start": "npm-run-all prompt --parallel server dev",
     "prompt": "node ./prompt.js",
-    "dev": "webpack --mode development --colors --watch",
+    "dev": "webpack --config __tooling__/webpack/webpack.dev.config.js --watch",
     "server": "nodemon server.js",
-    "upload:s3": "yarn build:prod && node ./s3.js",
-    "build:prod": "webpack --config webpack.production.config.js --mode production --progress --colors"
+    "upload:s3": "npm run build:prod && node ./s3.js",
+    "build:prod": "webpack --config __tooling__/webpack/webpack.prod.config.js -p"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.1",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@quickbaseoss/babel-plugin-styled-components-css-namespace": "^0.1.1",
     "autoprefixer": "^6.4.0",
-    "aws-sdk": "^2.4.0",
+    "aws-sdk": "^2.358.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-styled-components": "^1.7.1",
     "colors": "1.1.2",
@@ -50,6 +49,7 @@
     "styled-components": "^3.4.6",
     "url-loader": "^0.5.7",
     "webpack": "4.18.0",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4"
   }
 }

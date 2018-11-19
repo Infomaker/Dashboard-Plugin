@@ -1,21 +1,19 @@
 const path = require('path')
 const webpack = require('webpack')
-const manifest = require('./manifest.json')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const postcssPresetEnv = require('postcss-preset-env')
 
+const rootDir = path.resolve(__dirname, "..", "..")
+const manifest = require(path.resolve(rootDir, 'manifest.json'))
+
 module.exports = {
-    entry: "./src/js/main.js",
-    output: {
-        filename: "index.js",
-        path: path.join(__dirname, "dist")
-    },
+    entry: path.resolve(rootDir, "src/js/main.js"),
     resolve: {
-        extensions: ['*', '.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx'],
         alias: {
-            '@root': path.resolve(__dirname, "src/js/plugin/"),
-            '@components': path.resolve(__dirname, "src/js/plugin/components/"),
+            '@root': path.resolve(rootDir, "src/js/plugin/"),
+            '@components': path.resolve(rootDir, "src/js/plugin/components/"),
         }
     },
     externals: {
@@ -53,6 +51,11 @@ module.exports = {
                         {
                             search: '@plugin_bundle_class',
                             replace: manifest.bundle.replace(/\./g, '-'),
+                            flags: 'g'
+                        },
+                        {
+                            search: '@plugin_bundle_version',
+                            replace: manifest.version.replace(/\./g, '-'),
                             flags: 'g'
                         },
                         {
