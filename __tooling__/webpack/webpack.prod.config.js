@@ -11,7 +11,7 @@ module.exports = merge(common,
     {
         mode: 'production',
         output: {
-            filename: "dist.js",
+            filename: "index.js",
             path: path.resolve(__dirname, "..", "..", "dist"),
             publicPath: "/"
         },
