@@ -74,8 +74,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-						configFile: path.resolve(rootDir, 'babel.config.js')
-					}
+                        configFile: path.resolve(rootDir, 'babel.config.js')
+                    }
                 }
             },
             {
@@ -84,8 +84,8 @@ module.exports = {
                     'style-loader',
                     MiniCssExtractPlugin.loader,
                     {
-                        loader: "css-loader", 
-                        options: { 
+                        loader: "css-loader",
+                        options: {
                             modules: false,
                             importLoaders: 1,
                             sourceMap: false
