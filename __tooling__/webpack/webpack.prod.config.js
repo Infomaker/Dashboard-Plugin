@@ -1,3 +1,5 @@
+/* globals __dirname process */
+
 process.env.NODE_ENV = "production"
 
 const path = require('path')

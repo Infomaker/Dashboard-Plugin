@@ -1,3 +1,5 @@
+/* globals __dirname */
+
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -70,7 +72,10 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    options: {
+						configFile: path.resolve(rootDir, 'babel.config.js')
+					}
                 }
             },
             {
