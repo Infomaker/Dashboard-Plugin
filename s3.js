@@ -10,7 +10,6 @@
 
 const AWS = require("aws-sdk");
 const fs = require("fs");
-const exec = require("child_process").exec;
 const colors = require("colors/safe");
 const zlib = require("zlib");
 
