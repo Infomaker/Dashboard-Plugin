@@ -1,16 +1,14 @@
-import { Component } from 'react'
+import React from 'react'
 import { ComponentWrapper } from './style'
 
-class MyExampleComponent extends Component {
-    render() {
-        const { input, color = 'red' } = this.props
+const MyExampleComponent = props => {
+    const { input, color = 'red' } = props
 
-        return (
-            <ComponentWrapper color={color}>
-                {input}
-            </ComponentWrapper>
-        )
-    }
+    return (
+        <ComponentWrapper color={color}>
+            {input}
+        </ComponentWrapper>
+    )
 }
 
 export default MyExampleComponent

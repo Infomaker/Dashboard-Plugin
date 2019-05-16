@@ -22,10 +22,13 @@ import MyApplication from "@root/MyApplication";
  */
 
 (() => {
+
     /**
      * Register your plugin in the Dashboard.
      */
+
     register({
+
         // Leave this be and it will fetch the data from your manifest file in the build steps
         bundle: "@plugin_bundle",
 

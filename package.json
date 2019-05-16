@@ -7,14 +7,17 @@
   "repository": "https://github.com/Infomaker/Dashboard-Plugin",
   "private": true,
   "bugs": "https://github.com/Infomaker/Dashboard-Plugin/issues",
-  "main": "webpack.config.js",
+  "main": "__tooling__/webpack/webpack.dev.config.js",
   "scripts": {
     "start": "npm-run-all prompt --parallel server dev",
+    "start:hot": "npm-run-all prompt --parallel server:hot dev:hot",
     "prompt": "node ./prompt.js",
-    "dev": "webpack --mode development --colors --watch",
-    "server": "nodemon server.js",
+    "dev": "webpack --config __tooling__/webpack/webpack.dev.config.js --mode development",
+    "dev:hot": "webpack --config __tooling__/webpack/webpack.dev.hot.config.js --mode development",
+    "server": "node server.js ",
+    "server:hot": "HOT=1 node server.js ",
     "upload:s3": "yarn build:prod && node ./s3.js",
-    "build:prod": "webpack --config webpack.production.config.js --mode production --progress --colors"
+    "build:prod": "webpack --config __tooling__/webpack/webpack.prod.config.js --mode production -p"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",
@@ -44,12 +47,16 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^5.3.0",
     "prompt": "1.0.0",
+    "react-hot-loader": "^4.3.12",
     "s3": "^4.4.0",
     "string-replace-loader": "^1.0.3",
     "style-loader": "^0.23.0",
     "styled-components": "^3.4.6",
     "url-loader": "^0.5.7",
     "webpack": "4.18.0",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-middleware": "^3.4.0",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.1.4"
   }
 }
