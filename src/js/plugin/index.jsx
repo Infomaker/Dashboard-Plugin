@@ -9,11 +9,12 @@
 |
 */
 
-import { register } from "Dashboard";
-import MyAgent from "@root/MyAgent";
-import MyWidget from "@root/MyWidget";
-import MySettings from "@root/MySettings";
-import MyApplication from "@root/MyApplication";
+import { register } from "Dashboard"
+
+import MyAgent from "@root/MyAgent"
+import MyWidget from "@root/MyWidget"
+import MySettings from "@root/MySettings"
+import MyApplication from "@root/MyApplication"
 
 /**
  * You can also create an Health by extending the Health class from Dashboard (Dashboard.Health).
@@ -36,5 +37,5 @@ import MyApplication from "@root/MyApplication";
 
         // Settings is optional.
         settings: MySettings
-    });
+    })
 })()

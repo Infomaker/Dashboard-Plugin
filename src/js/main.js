@@ -7,6 +7,9 @@
 |
 */
 
-
 import "./plugin/index.jsx"
 import "./plugin/style.css"
+
+if (module.hot && typeof module.hot.accept === 'function') {
+    module.hot.accept()
+}

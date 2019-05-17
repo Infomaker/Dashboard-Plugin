@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { ComponentWrapper } from './style'
 
 class MyExampleComponent extends Component {
-    render() {
+    render() {       
         const { input, color = 'red' } = this.props
 
         return (

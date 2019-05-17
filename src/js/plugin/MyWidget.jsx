@@ -3,7 +3,7 @@
  * Read more about Widget (https://github.com/Infomaker/Dashboard-Plugin/wiki/Widget)
  */
 
-import { Widget, GUI } from "Dashboard";
+import { Widget, GUI } from "Dashboard"
 
 export default class MyWidget extends Widget {
     render() {

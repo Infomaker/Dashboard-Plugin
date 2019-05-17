@@ -3,9 +3,10 @@
  * Read more about Application (https://github.com/Infomaker/Dashboard-Plugin/wiki/Application)
  */
 
-import { Application, GUI } from "Dashboard";
-import MyExampleComponent from '@components/MyExampleComponent'
+import { Application, GUI } from "Dashboard"
+
 import MyModal from '@components/MyModal'
+import MyExampleComponent from '@components/MyExampleComponent'
 
 export default class MyApplication extends Application {
     constructor(props) {
@@ -21,13 +22,13 @@ export default class MyApplication extends Application {
 
         return (
             // Use @plugin_bundle_class and the bundle in the manifest will be used as your class
-            <GUI.Wrapper className="@plugin_bundle_class">
+            <GUI.Wrapper className={"@plugin_bundle_class"}>
 
                 <GUI.Title text={config.pluginTitle || "hello world"} />
 
                 <GUI.Button
-                    text="Open a modal"
-                    size="large"
+                    size={"large"}
+                    text={"Open a modal"}
                     onClick={() => this.openModal(MyModal)}
                 />
 
