@@ -14,16 +14,16 @@ class MyModal extends Modal {
         const treasures = ["🐢", "🦂", "👑", "🐌", "💍"]
 
         return (
-                <GUI.Section title="You found a modal">
-                    <GUI.Paragraph
-                        text={
-                            "You opened it and got " +
-                            (Math.floor(Math.random() * 5) + 1) +
-                            " gems and a " +
-                            treasures[Math.floor(Math.random() * treasures.length)]
-                        }
-                    />
-                </GUI.Section>
+            <GUI.Section title="You found a modal">
+                <GUI.Paragraph
+                    text={
+                        "You opened it and got " +
+                        (Math.floor(Math.random() * 5) + 1) +
+                        " gems and a " +
+                        treasures[Math.floor(Math.random() * treasures.length)]
+                    }
+                />
+            </GUI.Section>
 
         )
     }
