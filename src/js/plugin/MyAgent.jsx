@@ -6,8 +6,8 @@
 import { Agent } from "Dashboard"
 
 export default class MyAgent extends Agent {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.connect()
     }
